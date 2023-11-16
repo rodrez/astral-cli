@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "astral-cli"
+version = "0.1.0"
+description = ""
+authors = ["Fabian Rodriguez <fabian.rodrez@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+get-key = "^1.60.0"
+black = "^23.11.0"
+ruff = "^0.1.5"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
