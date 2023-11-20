@@ -1,14 +1,14 @@
 import time
 from getkey import keys, getkey
-import src.constants
+import constants
 
 
 def print_with_colors(text, color):
-    print(f"{color}{text}{src.constants.ANSI_RESET}", end="")
+    print(f"{color}{text}{constants.ANSI_RESET}", end="")
 
 
 def clear_screen():
-    print(src.constants.ANSI_CLEAR_SCREEN, end="")
+    print(constants.ANSI_CLEAR_SCREEN, end="")
 
 
 def loader(name, duration_secs, done_text, ontop=""):
@@ -25,14 +25,14 @@ def loader(name, duration_secs, done_text, ontop=""):
         str: The text that will be printed in the next section.
     """
     for i in range(duration_secs):
-        symbol = src.constants.LOADING_SYMBOLS[i % len(src.constants.LOADING_SYMBOLS)]
+        symbol = constants.LOADING_SYMBOLS[i % len(constants.LOADING_SYMBOLS)]
         print(
-            f"{ontop}{src.constants.LOADING_COLOR}{symbol}{src.constants.ANSI_RESET} {name}{src.constants.ANSI_RESET}"
+            f"{ontop}{constants.LOADING_COLOR}{symbol}{constants.ANSI_RESET} {name}{constants.ANSI_RESET}"
         )
         time.sleep(0.065)
         clear_screen()
 
-    return f"{src.constants.TRIANGLE_RIGHT} {done_text}{src.constants.ANSI_RESET}\n{src.constants.LINE_G}{src.constants.ANSI_RESET}"
+    return f"{constants.TRIANGLE_RIGHT} {done_text}{constants.ANSI_RESET}\n{constants.LINE_G}{constants.ANSI_RESET}"
 
 
 def type_in(name, pre_text, error_msg, validate_func, ontop=""):
@@ -51,15 +51,15 @@ def type_in(name, pre_text, error_msg, validate_func, ontop=""):
         tuple: A tuple containing the user's input and the result string.
     """
     typed_text = []
-    error = src.constants.BLUE
+    error = constants.BLUE
     icon_index = 3  # Default icon index
 
     while True:
         display_text = (
-            src.constants.GREY + pre_text if not typed_text else "".join(typed_text)
+            constants.GREY + pre_text if not typed_text else "".join(typed_text)
         )
         print(
-            f"{ontop}{error}{src.constants.SP_SET[icon_index]}{src.constants.ANSI_RESET} {name}\n{error}{src.constants.SP_SET[4]}{src.constants.ANSI_RESET}  {display_text}{src.constants.ANSI_RESET}\n{error}{src.constants.SP_SET[1]} {error_msg}"
+            f"{ontop}{error}{constants.SP_SET[icon_index]}{constants.ANSI_RESET} {name}\n{error}{constants.SP_SET[4]}{constants.ANSI_RESET}  {display_text}{constants.ANSI_RESET}\n{error}{constants.SP_SET[1]} {error_msg}"
         )
 
         key = getkey()
@@ -68,11 +68,11 @@ def type_in(name, pre_text, error_msg, validate_func, ontop=""):
             if validate_func("".join(typed_text)):
                 break
             else:
-                error = src.constants.YELLOW
+                error = constants.YELLOW
                 typed_text = []
                 icon_index = 2
                 error_msg = (
-                    f"{src.constants.YELLOW}{error_msg}{src.constants.ANSI_RESET}"
+                    f"{constants.YELLOW}{error_msg}{constants.ANSI_RESET}"
                 )
         elif key in [keys.UP, keys.DOWN, keys.LEFT, keys.RIGHT]:
             pass  # Ignore these keys
@@ -84,7 +84,7 @@ def type_in(name, pre_text, error_msg, validate_func, ontop=""):
 
         clear_screen()
 
-    result_text = f"{src.constants.TRIANGLE_RIGHT} {name}{src.constants.ANSI_RESET}\n{src.constants.LINE_G} {src.constants.GREY}{''.join(typed_text)}\n{src.constants.LINE_G}{src.constants.ANSI_RESET}"
+    result_text = f"{constants.TRIANGLE_RIGHT} {name}{constants.ANSI_RESET}\n{constants.LINE_G} {constants.GREY}{''.join(typed_text)}\n{constants.LINE_G}{constants.ANSI_RESET}"
     return "".join(typed_text), result_text
 
 
@@ -104,26 +104,26 @@ def g_select(title, options, descriptions, ontop=""):
     current_selection = 0
 
     while True:
-        print(f"{ontop}{src.constants.ACTIVE_ICON} {title}\n{src.constants.LINE_UNDER}")
+        print(f"{ontop}{constants.ACTIVE_ICON} {title}\n{constants.LINE_UNDER}")
 
         for index, option in enumerate(options):
             selection_indicator = (
-                src.constants.CIRCLE_FILLED
+                constants.CIRCLE_FILLED
                 if index == current_selection
-                else src.constants.CIRCLE_EMPTY
+                else constants.CIRCLE_EMPTY
             )
 
             # Print the description only for the currently selected option
             if index == current_selection and descriptions:
                 print(
-                    f"{src.constants.LINE}  {selection_indicator}    {option}"
-                    f"{src.constants.GREY}    {descriptions[index]}{src.constants.ANSI_RESET}"
+                    f"{constants.LINE}  {selection_indicator}    {option}"
+                    f"{constants.GREY}    {descriptions[index]}{constants.ANSI_RESET}"
                 )
 
             else:
-                print(f"{src.constants.LINE}  {selection_indicator}    {option}")
+                print(f"{constants.LINE}  {selection_indicator}    {option}")
 
-        print(src.constants.TO_RIGHT)
+        print(constants.TO_RIGHT)
         key = getkey()
 
         if key in keys.UP and current_selection > 0:
@@ -135,7 +135,7 @@ def g_select(title, options, descriptions, ontop=""):
 
         clear_screen()
 
-    display_text = f"{src.constants.TRIANGLE_RIGHT} {title}{src.constants.ANSI_RESET}\n{src.constants.LINE_G} {src.constants.GREY} {options[current_selection]}{src.constants.ANSI_RESET}\n{src.constants.LINE_G}"
+    display_text = f"{constants.TRIANGLE_RIGHT} {title}{constants.ANSI_RESET}\n{constants.LINE_G} {constants.GREY} {options[current_selection]}{constants.ANSI_RESET}\n{constants.LINE_G}"
     return current_selection, display_text
 
 
@@ -156,25 +156,25 @@ def m_select(title, options, descriptions, ontop=""):
     selected_options = [False] * len(options)  # Tracks which options are selected
 
     while True:
-        print(f"{ontop}{src.constants.ACTIVE_ICON} {title}\n{src.constants.LINE_UNDER}")
+        print(f"{ontop}{constants.ACTIVE_ICON} {title}\n{constants.LINE_UNDER}")
 
         for index, option in enumerate(options):
             box_icon = (
-                src.constants.BOX_FULL
+                constants.BOX_FULL
                 if selected_options[index]
-                else src.constants.BOX_EMPTY_G
+                else constants.BOX_EMPTY_G
             )
             description = (
-                f" {src.constants.GREY}{descriptions[index]}{src.constants.ANSI_RESET}"
+                f" {constants.GREY}{descriptions[index]}{constants.ANSI_RESET}"
                 if descriptions
                 else ""
             )
-            highlight = src.constants.GREEN if index == current_selection else ""
+            highlight = constants.GREEN if index == current_selection else ""
             print(
-                f"{src.constants.LINE}  {highlight}{box_icon}{src.constants.ANSI_RESET}    {option}{description}"
+                f"{constants.LINE}  {highlight}{box_icon}{constants.ANSI_RESET}    {option}{description}"
             )
 
-        print(src.constants.TO_RIGHT)
+        print(constants.TO_RIGHT)
         key = getkey()
 
         if key in keys.UP and current_selection > 0:
@@ -193,7 +193,7 @@ def m_select(title, options, descriptions, ontop=""):
     selected_items = [
         options[i] for i, selected in enumerate(selected_options) if selected
     ]
-    display_text = f"{src.constants.TRIANGLE_RIGHT} {title}\n{src.constants.LINE_G} {src.constants.GREY} {', '.join(selected_items)}{src.constants.ANSI_RESET}\n{src.constants.LINE_G}"
+    display_text = f"{constants.TRIANGLE_RIGHT} {title}\n{constants.LINE_G} {constants.GREY} {', '.join(selected_items)}{constants.ANSI_RESET}\n{constants.LINE_G}"
     return selected_items, display_text
 
 
@@ -213,19 +213,19 @@ def l_select(title, options, descriptions, ontop=""):
     current_selection = 0
 
     while True:
-        print(f"{ontop}{src.constants.ACTIVE_ICON} {title}\n{src.constants.LINE_UNDER}")
-        print(src.constants.LINE, end="")
+        print(f"{ontop}{constants.ACTIVE_ICON} {title}\n{constants.LINE_UNDER}")
+        print(constants.LINE, end="")
 
         for index, option in enumerate(options):
             selection_indicator = (
-                src.constants.CIRCLE_FILLED
+                constants.CIRCLE_FILLED
                 if index == current_selection
-                else src.constants.CIRCLE_EMPTY
+                else constants.CIRCLE_EMPTY
             )
             description = f" {descriptions[index]}" if descriptions else ""
             print(f"  {selection_indicator} {option}{description}", end="")
 
-        print(f"\n{src.constants.TO_RIGHT}")
+        print(f"\n{constants.TO_RIGHT}")
         key = getkey()
 
         if key in keys.LEFT and current_selection > 0:
@@ -237,7 +237,7 @@ def l_select(title, options, descriptions, ontop=""):
 
         clear_screen()
 
-    display_text = f"{src.constants.TRIANGLE_RIGHT} {title}\n{src.constants.LINE_G} {src.constants.GREY} {options[current_selection]}{src.constants.ANSI_RESET}\n{src.constants.LINE_G}"
+    display_text = f"{constants.TRIANGLE_RIGHT} {title}\n{constants.LINE_G} {constants.GREY} {options[current_selection]}{constants.ANSI_RESET}\n{constants.LINE_G}"
     return current_selection, display_text
 
 
@@ -251,7 +251,7 @@ def start(title):
     Returns:
         str: Formatted start string.
     """
-    start_text = f"{src.constants.GREY}↱{src.constants.ANSI_RESET} {src.constants.BLUE_BACKGROUND} {title} {src.constants.ANSI_RESET}\n{src.constants.GREY}{src.constants.SP_SET[0]}{src.constants.ANSI_RESET}"
+    start_text = f"{constants.GREY}↱{constants.ANSI_RESET} {constants.BLUE_BACKGROUND} {title} {constants.ANSI_RESET}\n{constants.GREY}{constants.SP_SET[0]}{constants.ANSI_RESET}"
     print(start_text)
     return start_text
 
@@ -268,25 +268,25 @@ def end(title, final_text):
         None
     """
     print(
-        f"{final_text}{src.constants.GREY}↳{src.constants.ANSI_RESET} {src.constants.BLUE_BACKGROUND} {title} {src.constants.ANSI_RESET}"
+        f"{final_text}{constants.GREY}↳{constants.ANSI_RESET} {constants.BLUE_BACKGROUND} {title} {constants.ANSI_RESET}"
     )
     # Additional text (can be customized or removed)
     extra_text = (
         " "
-        + src.constants.GREY
-        + src.constants.SP_SET[0]
+        + constants.GREY
+        + constants.SP_SET[0]
         + "\n "
-        + src.constants.GREY
-        + src.constants.SP_SET[0]
-        + src.constants.ANSI_RESET
+        + constants.GREY
+        + constants.SP_SET[0]
+        + constants.ANSI_RESET
         + "Cool right?\n "
-        + src.constants.GREY
-        + src.constants.SP_SET[0]
-        + src.constants.ANSI_RESET
+        + constants.GREY
+        + constants.SP_SET[0]
+        + constants.ANSI_RESET
         + "Right\n "
-        + src.constants.GREY
-        + src.constants.SP_SET[0]
-        + src.constants.ANSI_RESET
+        + constants.GREY
+        + constants.SP_SET[0]
+        + constants.ANSI_RESET
     )
     print(extra_text)
 
