@@ -3,8 +3,8 @@ from typing import Literal
 
 from getkey import getkey, keys
 
-from .symbols import SYMBOLS, SP_SET, LOADING_SYMBOLS
-from .colors import COLORS
+from core.symbols import SYMBOLS, SP_SET, LOADING_SYMBOLS
+from core.colors import COLORS
 
 
 class InteractivePrompt:
@@ -244,11 +244,12 @@ class InteractivePrompt:
         Returns:
             str: Formatted start string.
         """
-        start_text = (
-            f"{COLORS.GREY}↱{COLORS.RESET} {COLORS.BLUE_BG} "
-            f"{title} {COLORS.RESET}\n{COLORS.GREY}{SP_SET[0]}"
-            f"{COLORS.RESET}"
-        )
+        # start_text = (
+        #     f"{COLORS.GREY}↱{COLORS.RESET} {COLORS.BLUE_BG} "
+        #     f"{title} {COLORS.RESET}\n{COLORS.GREY}{SP_SET[0]}"
+        #     f"{COLORS.RESET}"
+        # )
+        start_text = f"{COLORS.GREY}↱{COLORS.RESET} {COLORS.BLUE_BG} {title} {COLORS.RESET}\n{COLORS.GREY}{SP_SET[0]}{COLORS.RESET}"
         print(start_text)
         return start_text
 

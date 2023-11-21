@@ -1,10 +1,6 @@
 import time
 from getkey import keys, getkey
-import constants
-
-
-def print_with_colors(text, color):
-    print(f"{color}{text}{constants.ANSI_RESET}", end="")
+from core import constants
 
 
 def clear_screen():

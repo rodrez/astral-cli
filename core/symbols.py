@@ -1,7 +1,7 @@
 import enum
 from typing import Literal
 
-from src.colors import COLORS
+from core.colors import COLORS
 
 
 class SYMBOLS(enum.Enum):
